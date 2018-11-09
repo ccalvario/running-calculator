@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import DisplayTime from './DisplayTime';
+import DisplayDistance from './DisplayDistance';
 
 class Board extends Component {
     constructor(props) {
@@ -42,20 +43,34 @@ class Board extends Component {
         }
     }
 
+    handleDistanceChange(distance) {
+        const newDistance = distance;
+        if(!isNaN(newDistance)) {
+            this.setState({
+                distance: newDistance,
+                pace: this.calculatePace(newDistance, this.state.time),
+            });
+        }
+    }
+
     render() {
         
         return (
             <div>
-                <p>Distance: { this.state.distance }</p>
+                <p>Distance: </p>
+                <DisplayDistance
+                distance={this.state.distance}
+                onChange={(e) => this.handleDistanceChange(e)}
+                />
                 <p>Time: </p>
                 <DisplayTime
                 time={this.state.time}
-                onChange= {(e) => this.handleTimeChange(e)}
+                onChange={(e) => this.handleTimeChange(e)}
                 />
                 <p>Pace: {this.state.pace}</p>
                 <DisplayTime
                 time={this.state.pace}
-                onChange= {(e) => this.handlePaceChange(e)}
+                onChange={(e) => this.handlePaceChange(e)}
                 />
             </div>
         );
