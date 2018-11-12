@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './DisplayTime.css';
 
 class DisplayTime extends Component {
     constructor(props) {
@@ -52,24 +53,26 @@ class DisplayTime extends Component {
         const hours =  Math.floor(this.props.time  / 3600);
         const minutes = Math.floor(this.props.time % 3600 / 60);
         const seconds = Math.floor(this.props.time % 3600 % 60);
+        
+        let hoursInput = <input type="number" className="form-control display-time"
+                            placeholder="0"
+                            onChange={(e) => this.handleHoursChange(e)}
+                            value={hours} />;
+
         return (
             <div>
-                <input type="number" className="form-control"
-                    placeholder="0"
-                    onChange={(e) => this.handleHoursChange(e)}
-                    value={hours} />
-                <input type="number" className="form-control"
+                {this.props.showHours ? hoursInput : null}
+                <input type="number" className="form-control display-time"
                     placeholder="0"
                     onChange={(e) => this.handleMinutesChange(e)}
                     value={minutes} />
-                <input type="number" className="form-control"
+                <input type="number" className="form-control display-time"
                     placeholder="0"
                     onChange={(e) => this.handleSecondsChange(e)}
                     value={seconds} />
             </div>
         );
     }
-
 }
 
 export default DisplayTime;
