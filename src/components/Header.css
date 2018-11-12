@@ -1,0 +1,15 @@
+.header {
+    background-color: #0b0c10;
+    /* color: #66fcf1; */
+    color: #45a29e;
+    height: 20vh;
+    
+}
+
+.title {
+    align-items: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+}
