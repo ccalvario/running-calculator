@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import DisplayTime from './DisplayTime';
 import DisplayDistance from './DisplayDistance';
+import './Board.css';
 
 class Board extends Component {
     constructor(props) {
@@ -56,26 +57,34 @@ class Board extends Component {
     render() {
         
         return (
-            <div>
-                <p>Distance: </p>
-                <DisplayDistance
-                distance={this.state.distance}
-                onChange={(e) => this.handleDistanceChange(e)}
-                />
-                <p>Time: </p>
-                <DisplayTime
-                time={this.state.time}
-                onChange={(e) => this.handleTimeChange(e)}
-                />
-                <p>Pace: {this.state.pace}</p>
-                <DisplayTime
-                time={this.state.pace}
-                onChange={(e) => this.handlePaceChange(e)}
-                />
+            
+            <div className="board">
+                <div class="row">
+                    <p>Distance: </p>
+                    <DisplayDistance
+                        distance={this.state.distance}
+                        onChange={(e) => this.handleDistanceChange(e)}
+                    />
+                </div>
+                <div class="row">
+                    <p>Time: </p>
+                    <DisplayTime
+                        time={this.state.time}
+                        showHours={true}
+                        onChange={(e) => this.handleTimeChange(e)}
+                    />
+                </div>
+                <div class="row">
+                    <p>Pace: </p>
+                    <DisplayTime
+                        time={this.state.pace}
+                        showHours={false}
+                        onChange={(e) => this.handlePaceChange(e)}
+                    />
+                </div>
             </div>
         );
     }
-
 }
 
 export default Board;

@@ -1,0 +1,12 @@
+.board {
+    max-width: 25rem;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1.5rem;
+    color: #c5c6c7;
+
+}
+.row {
+    display: flex;
+    align-items: center;
+}
