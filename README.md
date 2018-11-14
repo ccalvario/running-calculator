@@ -13,6 +13,10 @@ Install
 
 `npm install`
 
+Install reactstrap
+
+`npm install --save reactstrap react react-dom`
+
 
 
 Usage
