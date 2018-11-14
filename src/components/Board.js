@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import DisplayTime from './DisplayTime';
 import DisplayDistance from './DisplayDistance';
 import './Board.css';
+import { Container, Row, Col } from 'reactstrap';
 
 class Board extends Component {
     constructor(props) {
@@ -24,14 +25,14 @@ class Board extends Component {
 
     handleTimeChange(time){
         const newTime = time;
-        console.log(newTime);
 
         if(!isNaN(newTime)) {
             this.setState({
                 time: newTime,
                 pace: this.calculatePace(this.state.distance, newTime),
             });
-        } 
+        }
+        console.log("****handleTimeChange " + time);
     }
 
     handlePaceChange(pace) {
@@ -42,6 +43,7 @@ class Board extends Component {
                 time: this.calculateTime(this.state.distance, newPace),
             });
         }
+        console.log("****handlePaceChange " + pace);
     }
 
     handleDistanceChange(distance) {
@@ -58,31 +60,43 @@ class Board extends Component {
         
         return (
             
-            <div className="board">
-                <div class="row">
-                    <p>Distance: </p>
-                    <DisplayDistance
-                        distance={this.state.distance}
-                        onChange={(e) => this.handleDistanceChange(e)}
-                    />
-                </div>
-                <div class="row">
-                    <p>Time: </p>
-                    <DisplayTime
-                        time={this.state.time}
-                        showHours={true}
-                        onChange={(e) => this.handleTimeChange(e)}
-                    />
-                </div>
-                <div class="row">
-                    <p>Pace: </p>
-                    <DisplayTime
-                        time={this.state.pace}
-                        showHours={false}
-                        onChange={(e) => this.handlePaceChange(e)}
-                    />
-                </div>
-            </div>
+            <Container className="board">
+                <Row>
+                    <Col xs="4" className="label">
+                        Distance:
+                    </Col>
+                    <Col xs="auto">
+                        <DisplayDistance
+                            distance={this.state.distance}
+                            onChange={(e) => this.handleDistanceChange(e)}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs="4" className="label">
+                        Time:
+                    </Col>
+                    <Col xs="auto">
+                        <DisplayTime
+                            time={this.state.time}
+                            showHours={true}
+                            onChange={(e) => this.handleTimeChange(e)}
+                        />
+                    </Col>                    
+                </Row>
+                <Row>
+                    <Col xs="4" className="label">
+                        Pace:
+                    </Col>
+                    <Col xs="auto">
+                        <DisplayTime
+                            time={this.state.pace}
+                            showHours={false}
+                            onChange={(e) => this.handlePaceChange(e)}
+                        />
+                    </Col>                   
+                </Row>
+            </Container>
         );
     }
 }

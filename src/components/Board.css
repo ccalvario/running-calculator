@@ -1,12 +1,23 @@
+.row {
+    padding: 1rem 0;
+}
+
 .board {
     max-width: 25rem;
     margin-right: auto;
     margin-left: auto;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #c5c6c7;
 
 }
-.row {
+
+.display-time {
     display: flex;
     align-items: center;
+}
+
+.label {
+    text-align: left;
+    display: flex;
+    align-items: flex-end;
 }

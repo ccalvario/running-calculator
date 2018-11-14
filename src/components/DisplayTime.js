@@ -2,50 +2,40 @@ import React, {Component} from 'react';
 import './DisplayTime.css';
 
 class DisplayTime extends Component {
-    constructor(props) {
-        super(props);
-        const hours =  Math.floor(props.time  / 3600);
-        const minutes = Math.floor(props.time % 3600 / 60);
-        const seconds = Math.floor(props.time % 3600 % 60);
-        console.log("display cosnt " + props.time);
-        this.state = {
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds,
-        }
-    }
 
     handleSecondsChange(e) {
-        const value = e.target.value;
-        if(!isNaN(value)) {
-            this.setState({
-                seconds: value,
-            })
+        let value = e.target.value;
+        const hours =  Math.floor(this.props.time  / 3600);
+        const minutes = Math.floor(this.props.time % 3600 / 60);
+        //const seconds = Math.floor(this.props.time % 3600 % 60);
+        if(isNaN(value)) {
+            return;
         }
-        let time = Number(this.state.hours * 3600) + Number(this.state.minutes * 60) + Number(value);
-        console.log("display " + time);
+        let time = Number(hours * 3600) + Number(minutes * 60) + Number(value);
         this.props.onChange(time);
     }
 
     handleMinutesChange(e) {
+        const hours =  Math.floor(this.props.time  / 3600);
+        //const minutes = Math.floor(this.props.time % 3600 / 60);
+        const seconds = Math.floor(this.props.time % 3600 % 60);
         const value = e.target.value;
-        if(!isNaN(value)) {
-            this.setState({
-                minutes: value,
-            })
+        if(isNaN(value)) {
+            return;
         }
-        let time = Number(this.state.hours * 3600) + Number(value * 60) + Number(this.state.seconds);
+        let time = Number(hours * 3600) + Number(value * 60) + Number(seconds);
         this.props.onChange(time);
     }
 
     handleHoursChange(e) {
+        //const hours =  Math.floor(this.props.time  / 3600);
+        const minutes = Math.floor(this.props.time % 3600 / 60);
+        const seconds = Math.floor(this.props.time % 3600 % 60);
         const value = e.target.value;
-        if(!isNaN(value)) {
-            this.setState({
-                hours: value,
-            })
+        if(isNaN(value)) {
+            return;
         }
-        let time = value * 3600 + this.state.minutes * 60 + this.state.seconds;
+        let time = value * 3600 + minutes * 60 + seconds;
         this.props.onChange(time);
     }
 
@@ -54,22 +44,37 @@ class DisplayTime extends Component {
         const minutes = Math.floor(this.props.time % 3600 / 60);
         const seconds = Math.floor(this.props.time % 3600 % 60);
         
-        let hoursInput = <input type="number" className="form-control display-time"
+        let hoursInput = <input type="text" className="form-control display-time"
                             placeholder="0"
                             onChange={(e) => this.handleHoursChange(e)}
-                            value={hours} />;
+                            value={hours}
+                            maxLength="2" />;
 
         return (
-            <div>
-                {this.props.showHours ? hoursInput : null}
-                <input type="number" className="form-control display-time"
-                    placeholder="0"
-                    onChange={(e) => this.handleMinutesChange(e)}
-                    value={minutes} />
-                <input type="number" className="form-control display-time"
-                    placeholder="0"
-                    onChange={(e) => this.handleSecondsChange(e)}
-                    value={seconds} />
+            <div className="display">
+                <div>
+                    <div className="display-label">
+                        {this.props.showHours ? <div>H</div> : null}
+                        <div>M</div>
+                        <div>S</div>
+                    </div>
+
+                </div>
+                <div>
+                    <div className="display-row">
+                        {this.props.showHours ? hoursInput : null}
+                        <input type="text" className="form-control display-time"
+                            placeholder="0"
+                            onChange={(e) => this.handleMinutesChange(e)}
+                            value={minutes} 
+                            maxLength="2"/>
+                        <input type="text" className="form-control display-time"
+                            placeholder="0"
+                            onChange={(e) => this.handleSecondsChange(e)}
+                            value={seconds}
+                            maxLength="2" />
+                    </div>
+                </div>
             </div>
         );
     }
